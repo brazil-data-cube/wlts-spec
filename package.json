@@ -1,0 +1,14 @@
+{
+  "name": "wlts-spec",
+  "version": "0.2.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "redoc-cli bundle api/v0.2.0/wlts.yaml --output dist/index.html"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "redoc-cli": "^0.9.6"
+  }
+}

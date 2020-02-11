@@ -1,0 +1,230 @@
+openapi: 3.0.0
+
+info:
+  description: >
+    Web Land Trajectory Service. You can find out more about WLTS at  [https://github.com/brazil-data-cube/wlts](https://github.com/brazil-data-cube/wlts)
+
+  version: '0.2.0'
+
+  title: Web Land Trajectory Service
+
+  contact:
+    name: Fabiana Zioti
+    email: fabi.zioti@gmail.com
+
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+
+servers:
+  - url: 'https://localhost/wlts'
+    description: Production server
+
+
+paths:
+
+  '/list_collections:':
+    get:
+      summary: List Collections
+      description: Retrieve list of available collections.
+      responses:
+        '200':
+          description: Array of collections.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionList'
+
+
+  '/describe_collection':
+    get:
+      summary: Describe Collection
+      description: Retrieves collection description
+      parameters:
+         -  in: query
+            name: name
+            required: true
+            description: Collection Name
+            schema:
+              type: string
+      responses:
+        description: Collection found.
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionDescription'
+
+
+  '/trajectory':
+    get:
+      summary: Trajectory
+      description: >
+        Retrieves the trajectories of collections associated with a given
+        location in space. The property `result` contains the feature identifier
+        information, class, time, and the belonging collection.
+      parameters:
+        - in: query
+          name: collections
+          description: >
+            List of collections name delimited by comma. i.e  `collections=prodes,deter`
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: latitude
+          description: Latitude coordinate. i.e `latitude=−6.99`
+          required: true
+          schema:
+            type: number
+        - in: query
+          name: longitude
+          description: Longitude coordinate. i.e `longitude=−50.9498`
+          required: true
+          schema:
+            type: number
+        - in: query
+          name: start_date
+          required: false
+          description: Start date. i.e `start_date=2007-01-01`
+          schema:
+            type: string
+        - in: query
+          name: end_date
+          required: false
+          description: End date. i.e `end_date=2017-12-31`
+          schema:
+            type: string
+
+    responses:
+      '400':
+        description: Missing required arguments
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIError'
+      '404':
+        description: Collections not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIError'
+
+      '200':
+        description: Trajectory found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Trajectory'
+
+components:
+
+  #-------------------------------
+  # Reusable schemas (data models)
+  #-------------------------------
+
+  schemas:
+
+    CollectionList:
+      type: object
+      properties:
+        collections:
+          type: array
+          items:
+            type: string
+
+    SpatialExtent:
+      type: object
+      properties:
+        xmin:
+          type: number
+        xmax:
+          type: number
+        ymin:
+          type: number
+        ymax:
+          type: number
+
+    Classes:
+      type: object
+      properties:
+        id:
+          type: number
+        classification_system:
+          type: string
+        names:
+          type: array
+          items:
+            type: string
+
+    CollectionDescription:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        detail:
+          type: string
+        collection_type:
+          type: string
+        resolution_unit:
+          type: object
+          properties:
+            unit:
+              type: string
+            value:
+              type: number
+        time_format:
+          type: string
+        period:
+          type: object
+          properties:
+            start_date:
+              type: string
+            end_date:
+              type: string
+        spatial_extent:
+           $ref: '#/components/schemas/SpatialExtent'
+        classes:
+           $ref: '#/components/schemas/Classes'
+
+    APIError:
+      type: object
+      description: Used to describe the error occurred on Request operation
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+
+    Trajectory:
+      type: object
+      properties:
+        trajectory:
+          type: array
+          items:
+            type: object
+            properties:
+              class:
+                type: string
+              collection:
+                type: string
+              date:
+                type: string
+        query:
+          type: object
+          properties:
+            collenctions:
+              type: array
+              items:
+                type: string
+            longitude:
+              type: number
+            latitude:
+              type: number
+            start_date:
+              type: string
+            end_date:
+              type: string
