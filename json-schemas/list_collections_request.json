@@ -1,0 +1,12 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "localhost/wlts/list_collections_request.json",
+  "type": "object",
+  "title": "WLTS - List Collections operation",
+  "description": "Retrieves list of available collections",
+  "readOnly": true,
+  "writeOnly": false,
+  "required": [ ],
+  "properties": {}
+}

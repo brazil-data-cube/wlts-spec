@@ -1,0 +1,52 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "localhost/wlts/trajectory_request.json",
+  "type": "object",
+  "title": "WLTS - Trajectory operation",
+  "description": "Retrieves trajectory",
+  "readOnly": true,
+  "writeOnly": false,
+  "required": [
+    "latitude",
+    "longitude"
+  ],
+  "properties": {
+    "collections": {
+      "$id": "#/properties/collections",
+      "type": "string",
+      "title": "List of Collection Identifier",
+      "description": "List of collection identifier, delimited by comma, to retrieve trajectory ",
+      "default": "",
+      "examples": [
+        "prodes"
+      ]
+    },
+    "latitude": {
+      "$id": "#/properties/latitude",
+      "type": "string",
+      "title": "Latitude coordinate",
+      "description": "Latitude coordinate",
+      "pattern": "\\d"
+    },
+    "longitude": {
+      "$id": "#/properties/longitude",
+      "type": "string",
+      "title": "Longitude coordinate",
+      "description": "Longitude coordinate",
+      "pattern": "\\d"
+    },
+    "start_date": {
+      "$id": "#/properties/start_date",
+      "type": "string",
+      "title": "Start date",
+      "description": "Start date"
+    },
+    "end_date": {
+      "$id": "#/properties/end_date",
+      "type": "string",
+      "title": "End date",
+      "description": "End date"
+    }
+  }
+}

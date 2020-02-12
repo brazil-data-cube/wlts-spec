@@ -1,0 +1,31 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "localhost/wlts/list_collections_response.json",
+  "type": "object",
+  "title": "WLTS - List Collections operation",
+  "description": "Retrieves list of offered collections",
+  "required": [
+    "collections"
+  ],
+  "properties": {
+    "collections": {
+      "$id": "#/properties/collections",
+      "type": "array",
+      "title": "Collections Names",
+      "description": "Defines list of collections from server",
+      "default": false,
+      "items": {
+        "$id": "#/properties/collections/items",
+        "type": "string",
+        "title": "Collection Name",
+        "description": "Collection Name",
+        "default": "",
+        "examples": [
+          "Prodes",
+          "TerraClass"
+        ]
+      }
+    }
+  }
+}

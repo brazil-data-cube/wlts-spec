@@ -1,0 +1,243 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "localhost/wlts/describe_collection_response.json",
+  "type": "object",
+  "title": "WLTS - Describe Collection operation",
+  "required": [
+    "name",
+    "description",
+    "detail",
+    "collection_type",
+    "resolution_unit",
+    "time_format",
+    "period",
+    "spatial_extent",
+    "classes"
+  ],
+  "properties": {
+    "name": {
+      "$id": "#/properties/name",
+      "type": "string",
+      "title": "The Collection Name",
+      "default": "",
+      "examples": [
+        "Prodes"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "description": {
+      "$id": "#/properties/description",
+      "type": "string",
+      "title": "The Collection Description",
+      "default": ""
+    },
+    "detail": {
+      "$id": "#/properties/detail",
+      "type": "string",
+      "title": "The Collection Detail",
+      "default": ""
+    },
+    "collection_type": {
+      "$id": "#/properties/collection_type",
+      "type": "string",
+      "title": "The Collection Type",
+      "default": "",
+      "examples": [
+        "Feature"
+      ]
+    },
+    "resolution_unit": {
+      "$id": "#/properties/resolution_unit",
+      "type": "string",
+      "title": "The Collection Resolution Unit",
+      "required": [
+        "unit",
+        "value"
+      ],
+      "properties": {
+        "unit": {
+          "$id": "#/properties/resolution_unit/properties/unit",
+          "type": "string",
+          "title": "The Unit of Time",
+          "default": "",
+          "examples": [
+            "Y"
+          ]
+
+        },
+        "value": {
+          "$id": "#/properties/resolution_unit/properties/value",
+          "type": "number",
+          "title": "The Value of Time",
+          "default": "",
+          "examples": [
+            1
+          ]
+        }
+      }
+
+    },
+    "time_format": {
+      "$id": "#/properties/time_format",
+      "type": "string",
+      "title": "The Time Format",
+      "default": "",
+      "examples": [
+        "%Y"
+      ]
+    },
+    "period": {
+      "$id": "#/properties/period",
+      "type": "string",
+      "title": "The Collection period",
+      "required": [
+        "start_date",
+        "end_date"
+      ],
+      "properties": {
+        "start_date": {
+           "$id": "#/properties/period/properties/start_date",
+           "type": "string",
+            "title": "The Start Date of Collection",
+            "default": "",
+            "examples": [
+              "2017-12-31"
+            ],
+            "pattern": "^(.*)$"
+        },
+        "end_date": {
+          "$id": "#/properties/period/properties/end_date",
+          "type": "string",
+          "title": "The End Date of Collection",
+          "default": "",
+          "examples": [
+            "2017-12-31"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "spatial_extent": {
+      "$id": "#/properties/spatial_extent",
+      "type": "object",
+      "title": "The Spatial Extent Collection",
+      "required": [
+        "xmin",
+        "xmax",
+        "ymin",
+        "ymax"
+      ],
+      "properties": {
+        "xmin": {
+          "$id": "#/properties/spatial_extent/properties/xmin",
+          "type": "number",
+          "title": "The X minimum",
+          "default": 0.0,
+          "examples": [
+            -81.2341289433377
+          ]
+        },
+        "xmax": {
+          "$id": "#/properties/spatial_extent/properties/xmax",
+          "type": "number",
+          "title": "The X maximum ",
+          "default": 0.0,
+          "examples": [
+            -29.9999999973059
+          ]
+        },
+        "ymin": {
+          "$id": "#/properties/spatial_extent/properties/ymin",
+          "type": "number",
+          "title": "The Y minimum",
+          "default": 0.0,
+          "examples": [
+            -39.9999999964109
+          ]
+        },
+        "ymax": {
+          "$id": "#/properties/spatial_extent/properties/ymax",
+          "type": "number",
+          "title": "The Y maximum",
+          "default": 0.0,
+          "examples": [
+            9.99999999910497
+          ]
+        }
+      }
+
+    },
+    "classes": {
+      "$id": "#/properties/classes",
+      "type": "object",
+      "title": "The Classes of Collection",
+      "required": [
+          "classification_system",
+          "classification_system_id",
+          "classes"
+      ],
+      "properties": {
+        "classification_system": {
+          "$id": "#/properties/classes/properties/classification_system",
+          "type": "string",
+          "title": "The Classification System Name of Collection",
+          "default": "",
+          "examples": [
+            "mapbiomas"
+          ],
+          "pattern": "^(.*)$"
+
+        },
+        "classification_system_id": {
+          "$id": "#/properties/classes/properties/classification_system_id",
+          "type": "number",
+          "title": "The Classification System Identificator of Collection",
+          "default": "",
+          "examples": [
+            1
+          ]
+        },
+        "classes": {
+          "$id": "#/properties/classes/properties/classes",
+          "type": "array",
+          "title": "The Classes of Collection",
+          "description": "Defines list of classes",
+          "default": false,
+          "items": {
+            "$id": "#/properties/classes/properties/classes/items",
+            "type": "object",
+            "title": "Collection Classes",
+            "description": "Collection Classe Name and Identificator",
+            "required": [
+              "id",
+              "name"
+            ],
+            "properties": {
+              "id": {
+                "$id": "#/properties/classes/properties/classes/items/properties/id",
+                "type": "integer",
+                "title": "The Collection Class Identificator",
+                "default": false,
+                "examples": [
+                  1
+                ]
+              },
+              "name": {
+                "$id": "#/properties/classes/properties/classes/items/properties/name",
+                "type": "string",
+                "title": "The Collection Class Name",
+                "default": false,
+                "examples": [
+                  "Floresta"
+                ],
+                "pattern": "^(.*)$"
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
+}

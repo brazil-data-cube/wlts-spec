@@ -1,0 +1,130 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "localhost/wlts/trajectory_response.json",
+  "type": "object",
+  "title": "The Trajectory root schema",
+  "required": [
+    "trajectory",
+    "query"
+  ],
+  "properties": {
+    "query": {
+      "$id": "#/properties/query",
+      "type": "object",
+      "title": "The Query Schema",
+      "required": [
+        "collections",
+        "longitude",
+        "latitude",
+        "start_date",
+        "end_date"
+      ],
+      "properties": {
+        "collections": {
+          "$id": "#/properties/query/properties/collections",
+          "type": "array",
+          "title": "The Collections Schema",
+          "items": {
+            "$id": "#/properties/query/properties/collections/items",
+            "type": "string",
+            "title": "The collections Schema",
+            "default": "",
+            "examples": [
+              "prodes",
+              "deter"
+            ],
+            "pattern": "^(.*)$"
+          }
+        },
+        "longitude": {
+          "$id": "#/properties/query/properties/longitude",
+          "type": "integer",
+          "title": "The Longitude Schema",
+          "default": 0,
+          "examples": [
+            -54
+          ]
+        },
+        "latitude": {
+          "$id": "#/properties/query/properties/latitude",
+          "type": "integer",
+          "title": "The Latitude Schema",
+          "default": 0,
+          "examples": [
+            -12
+          ]
+        },
+        "start_date": {
+          "$id": "#/properties/query/properties/start_date",
+          "type": "string",
+          "title": "The Start_date Schema",
+          "default": "",
+          "examples": [
+            "2015-01-01"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "end_date": {
+          "$id": "#/properties/query/properties/end_date",
+          "type": "string",
+          "title": "The End_date Schema",
+          "default": "",
+          "examples": [
+            "2017-12-31"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "trajectory": {
+      "$id": "#/properties/trajectory",
+      "type": "array",
+      "title": "Trajectory result order by date",
+      "items": {
+        "$id": "#/properties/trajectory/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "class",
+          "collection",
+          "date"
+        ],
+        "properties": {
+          "class": {
+            "$id": "#/properties/trajectory/items/properties/class",
+            "type": "string",
+            "title": "The Collection Class",
+            "default": "",
+            "examples": [
+              "Floresta"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "collection": {
+            "$id": "#/properties/trajectory/items/properties/collection",
+            "type": "string",
+            "title": "The Collection Name",
+            "default": "",
+            "examples": [
+              "Prodes"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "date": {
+            "$id": "#/properties/trajectory/items/properties/date",
+            "type": "string",
+            "title": "The date of Collection",
+            "default": "",
+            "examples": [
+              "2007-01-01"
+            ],
+            "pattern": "^(.*)$"
+          }
+        }
+
+      }
+
+    }
+  }
+}
