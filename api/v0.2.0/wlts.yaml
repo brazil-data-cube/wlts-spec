@@ -156,7 +156,7 @@ components:
       properties:
         classification_system:
           type: string
-        classification_id:
+        classification_system_id:
           type: string
         classes:
           type: array
