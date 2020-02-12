@@ -48,11 +48,12 @@ paths:
             schema:
               type: string
       responses:
-        description: Collection found.
-        content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CollectionDescription'
+        '200':
+          description: Collection found.
+          content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CollectionDescription'
 
 
   '/trajectory':
@@ -95,26 +96,26 @@ paths:
           schema:
             type: string
 
-    responses:
-      '400':
-        description: Missing required arguments
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/APIError'
-      '404':
-        description: Collections not found
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/APIError'
+      responses:
+        '400':
+          description: Missing required arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+        '404':
+          description: Collections not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
 
-      '200':
-        description: Trajectory found
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Trajectory'
+        '200':
+          description: Trajectory found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trajectory'
 
 components:
 
@@ -147,14 +148,19 @@ components:
     Classes:
       type: object
       properties:
-        id:
-          type: number
         classification_system:
           type: string
-        names:
+        classification_id:
+          type: string
+        classes:
           type: array
           items:
-            type: string
+            type: object
+            properties:
+               id:
+                type: number
+               name:
+                type: string
 
     CollectionDescription:
       type: object
