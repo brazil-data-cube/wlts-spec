@@ -28,4 +28,4 @@ Released 2020-04-18
 
 - Source code versioning based on `Semantic Versioning 2.0.0 <https://semver.org/>`_.
 
-- License: `MIT <https://github.com/brazil-data-cube/wlts-spec/blob/master/LICENSE>`_.
+- License: `MIT <https://github.com/brazil-data-cube/wlts-spec/blob/v0.2.0/LICENSE>`_.
