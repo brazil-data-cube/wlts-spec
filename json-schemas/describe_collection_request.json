@@ -1,21 +1,21 @@
 {
   "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "localhost/wlts/describe_collection_request.json",
+  "$id": "http://www.esensing.dpi.inpe.br/wlts/describe_collection_request.json",
   "type": "object",
   "title": "WLTS - Describe Collection operation",
   "description": "Retrieves Collection description",
   "readOnly": true,
   "writeOnly": false,
   "required": [
-    "name"
+    "collection_id"
   ],
   "properties": {
-    "name": {
-      "$id": "#/properties/name",
+    "collection_id": {
+      "$id": "#/properties/collection_id",
       "type": "string",
-      "title": "Collection Name",
-      "description": "Collection Name",
+      "title": "Collection Identifier",
+      "description": "Identifier (name) of a collection.",
       "default": "",
       "examples": [
         "Prodes"

@@ -1,7 +1,7 @@
 {
   "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "localhost/wlts/trajectory_response.json",
+  "$id": "http://www.esensing.dpi.inpe.br/wlts/trajectory_response.json",
   "type": "object",
   "title": "The Trajectory root schema",
   "required": [
