@@ -10,10 +10,11 @@
 Changes
 =======
 
-Release
 
 Version 0.2.0
 -------------
+
+Released 2020-04-18
 
 - Basic OpenAPI 3.0 specification.
 

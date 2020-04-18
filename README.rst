@@ -30,13 +30,17 @@ Web Land Trajectory Service - Spec
 About
 =====
 
-Land Use and Cover informations is essential to support governments in decision making on the impact of human activities on the environment, for planning the use of natural resources, conservation of biodiversity, monitoring climate change.
+Land Use and Cover information is essential to support governments in decision making on the impact of human activities on the environment, for planning the use of natural resources, conservation of biodiversity, and monitoring climate change.
 
-Currently, several projects systematically provide information on the dynamics of land use and cover. PRODES, DETER and TerraClass are projects developed by INPE, which produce information on land use and coverage used by the Brazilian government to make public policy decisions. PRODES, DETER and TerraClass have as methodology the visual interpretation of the data obtained by Earth observation satellites. Other projects use machine learning methods to process spatial data, such as MapBiomas. On a global scale, Global Land Cover 2000 (GLC-2000) uses different classification techniques, based on the requirements and preferences of partner institutions around the world.
 
-Although these projects provide, in an open manner, a rich collection of data, the integrated use of these collections require a major effort to collect, organize and integration, prior to their use by scientists, students and public officials. Each collection has different classification systems, temporal and spatial resolution, storage structure (raster or vector).
+Currently, several projects systematically provide information on the dynamics of land use and cover. Well known projects include PRODES, DETER and TerraClass. These projects are developed by INPE and they produce information on land use and coverage used by the Brazilian Government to make public policy decisions. Besides these projects there are other initiatives from universities and space agencies devoted to the creation of national and global maps.
 
-In this context, the **W**\ eb **L**\ and **T**\ rajectory **S**\ ervice or, for short, **WLTS**, is a service that aims to facilitate access to these various collections through an API designed to integrate spatial data from different types of data sources, abstract queries to databases available data, allowing researchers and specialists to improve their analysis, integrating these trajectories with time series extracted from remote sensing images, validating new land cover data sets and selecting training samples to use in the generation of new classification maps. The WLTS approach is to use a data model that defines a minimum set of temporal and spatial information to represent different sources and types of data.
+
+Although these projects adhere to open data policies and provide a rich collection of data, there still a gap in the integrated use of these collections: it requires from researchers, students and public officials a great effort to collect, organize and integrate all the datasets, prior to their use. In general, each collection adopts its own land use and cover classification system, with class names and meanings very different across the collections. Besides that, the collections have diffrent spatial and temporalresolutions, relies on different data representation (raster or vector) and served by diffrent systems or formats (files, database or web services).
+
+
+In this context, the **W**\ eb **L**\ and **T**\ rajectory **S**\ ervice (WLTS) is a service that aims to facilitate the access to these various "land use and cover" data collections through a tailored API. The result is tool that allows researchers and specialists to spend their time in the analytical process, once the API provides the integration of these datasets and brings the concept of Land Use and Cover Trajectories as a high level abstraction. The WLTS approach is to use a data model that defines a minimum set of temporal and spatial information to represent different sources and types of data. WLTS can be used in a range of application, such as in validation of land cover data sets, in the selection of trainning samples to support Machine Learning algorithms used in the generation of new classification maps.
+
 
 Free and Open Source implementations based on this service can be found in the `wlts <https://github.com/brazil-data-cube/wlts>`_ (server) and `wlts.py <https://github.com/brazil-data-cube/wlts.py>`_ (Python client). See also the service **LCCS-WS** (**L**\ and **C**\ over **C**\ lassification **S**\ystem **W**\eb **S**\ ervice) (`LCCS-WS <https://github.com/brazil-data-cube/lccs-ws-spec>`_) which is used to represent the classes associated with the resources retrieved in the queries.
 
@@ -48,8 +52,10 @@ Repository Organization
 
 - `jsonschemas <./jsonschemas>`_: `JSON Schema <https://json-schema.org/>`_ for the classification systems and classes.
 
+
 Building the Documentation
 ==========================
+
 
 Requirements
 ------------
