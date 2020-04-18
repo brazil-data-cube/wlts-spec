@@ -1,0 +1,28 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "localhost/wlts/describe_collection_request.json",
+  "type": "object",
+  "title": "WLTS - Describe Collection operation",
+  "description": "Retrieves Collection description",
+  "readOnly": true,
+  "writeOnly": false,
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "$id": "#/properties/name",
+      "type": "string",
+      "title": "Collection Name",
+      "description": "Collection Name",
+      "default": "",
+      "examples": [
+        "Prodes"
+      ],
+      "readOnly": true,
+      "writeOnly": false,
+      "pattern": "^(.*)$"
+    }
+  }
+}
