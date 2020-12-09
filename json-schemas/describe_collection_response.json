@@ -74,7 +74,6 @@
           ]
         }
       }
-
     },
     "period": {
       "$id": "#/properties/period",
@@ -102,6 +101,37 @@
           "default": "",
           "examples": [
             "2017-12-31"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "classification_system": {
+      "$id": "#/properties/classification_system",
+      "type": "string",
+      "title": "The Classification System of a Collection",
+      "required": [
+        "classification_system_id",
+        "classification_system_name"
+      ],
+      "properties": {
+        "classification_system_id": {
+           "$id": "#/properties/classification_system/properties/classification_system_id",
+           "type": "string",
+            "title": "The id of Classification System",
+            "default": "",
+            "examples": [
+              "31"
+            ],
+            "pattern": "^(.*)$"
+        },
+        "classification_system_name": {
+          "$id": "#/properties/classification_system/properties/classification_system_name",
+          "type": "string",
+          "title": "The name of Classification System",
+          "default": "",
+          "examples": [
+            "MapBiomas5"
           ],
           "pattern": "^(.*)$"
         }

@@ -185,6 +185,13 @@ components:
                             type: string
                         end_date:
                             type: string
+                classification_system:
+                    type: object
+                    properties:
+                        classification_system_id:
+                            type: string
+                        classification_system_name:
+                            type: string
                 spatial_extent:
                     $ref: '#/components/schemas/SpatialExtentType'
             required:
@@ -193,6 +200,7 @@ components:
                 - collection_type
                 - resolution_unit
                 - period
+                - classification_system
 
         TrajectoryType:
             title: Trajectory.
