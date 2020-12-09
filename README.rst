@@ -12,7 +12,7 @@ Web Land Trajectory Service - Spec
 
 
 .. image:: https://img.shields.io/badge/license-MIT-green
-        :target: https://github.com//brazil-data-cube/wlts-spec/blob/v0.2.0/LICENSE
+        :target: https://github.com//brazil-data-cube/wlts-spec/blob/master/LICENSE
         :alt: Software License
 
 .. image:: https://img.shields.io/badge/lifecycle-maturing-blue.svg
