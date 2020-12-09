@@ -1,6 +1,6 @@
 ..
     This file is part of Web Land Trajectory Service Specification.
-    Copyright (C) 2019 INPE.
+    Copyright (C) 2019-2020 INPE.
 
     Web Land Trajectory Service Specification is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
@@ -11,10 +11,8 @@ Changes
 =======
 
 
-Version 0.2.0
--------------
-
-Released 2020-04-18
+Version 0.4.0 (2020-12-11)
+--------------------------
 
 - Basic OpenAPI 3.0 specification.
 
