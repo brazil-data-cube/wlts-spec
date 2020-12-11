@@ -53,6 +53,16 @@ Repository Organization
 - `jsonschemas <./jsonschemas>`_: `JSON Schema <https://json-schema.org/>`_ for the classification systems and classes.
 
 
+Overview of Service Operations
+==============================
+
+- The ``/list_collections`` operation when queried with a ``GET`` method returns the list of collections available in the service.
+
+- The ``/describe_collection`` operation when queried with a ``GET`` method returns the metadata of a given data collection.
+
+- The ``/trajectory`` operation when queried with a ``GET`` method returns the land use and cover trajectory from the collections given a location in space. The property result contains the feature identifier information, class, time, and the collection associated to the data item.
+
+
 Building the Documentation
 ==========================
 
