@@ -14,6 +14,16 @@ Changes
 Version 0.4.0 (2020-12-11)
 --------------------------
 
+- Improve API documentation (`#14 <https://github.com/brazil-data-cube/wlts-spec/issues/14>`_).
+
+- Add ``classification_system`` in ``/describe_collection`` API. (`#11 <https://github.com/brazil-data-cube/wlts-spec/issues/11>`_)
+
+- Change repository state to `maturing`.
+
+
+Version 0.2.0 (2020-04-18)
+--------------------------
+
 - Basic OpenAPI 3.0 specification.
 
 - Supported Operations:
