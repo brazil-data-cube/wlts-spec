@@ -11,8 +11,8 @@ Changes
 =======
 
 
-Version 0.4.0 (2020-12-11)
---------------------------
+Version 0.4.0-0 (2020-12-11)
+----------------------------
 
 - Improve API documentation (`#14 <https://github.com/brazil-data-cube/wlts-spec/issues/14>`_).
 
@@ -21,8 +21,8 @@ Version 0.4.0 (2020-12-11)
 - Change repository state to `maturing`.
 
 
-Version 0.2.0 (2020-04-18)
---------------------------
+Version 0.2.0-0 (2020-04-18)
+----------------------------
 
 - Basic OpenAPI 3.0 specification.
 
