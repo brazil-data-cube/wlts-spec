@@ -59,12 +59,12 @@ paths:
       parameters:
           - $ref: '#/components/parameters/collection_id'
       responses:
-          '200':
-              $ref: '#/components/responses/CollectionMetadata'
-          '404':
-              $ref: '#/components/responses/NotFound'
-          '500':
-              $ref: '#/components/responses/ServerError'
+        '200':
+          $ref: '#/components/responses/CollectionMetadata'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
 
   /trajectory:
     get:
@@ -79,14 +79,13 @@ paths:
           - $ref: '#/components/parameters/start_date'
           - $ref: '#/components/parameters/end_date'
           - $ref: '#/components/parameters/geometry'
-
       responses:
-          '200':
-              $ref: '#/components/responses/Trajectory'
-          '404':
-              $ref: '#/components/responses/NotFound'
-          '500':
-              $ref: '#/components/responses/ServerError'
+        '200':
+          $ref: '#/components/responses/Trajectory'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
 
 components:
 
