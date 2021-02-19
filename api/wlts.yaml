@@ -35,6 +35,17 @@ servers:
 
 paths:
 
+  /:
+    get:
+      tags:
+        - Root
+      summary: Root Entry Point
+      description: Returns the root entry point in the service.
+      operationId: getRoot
+      responses:
+        '200':
+          $ref: '#/components/responses/Root'
+
   /list_collections:
     get:
       tags:
@@ -141,7 +152,7 @@ components:
 
     geometry:
       name: geometry
-      description: Indicates the geometry must be returned. i.e `geometry=true`.
+      description: Indicates the geometry must be returned. i.e `geometry=True`.
       in: query
       required: false
       schema:
@@ -149,9 +160,18 @@ components:
 
   schemas:
 
+    RootType:
+      title: Landing Page
+      description: The landing page provides the service version.
+      type: object
+      properties:
+        wlts_version:
+          type: string
+          example: '0.6'
+
     CollectionsType:
       title: Features and Images Collections.
-      description: 'Indicate the  type of a collection in service.'
+      description: Indicate the  type of a collection in service.
       type: object
       properties:
         collections:
@@ -161,7 +181,7 @@ components:
 
     CollectionMetadataType:
       title: Collection.
-      description: 'Describes a specific collection avaliable in service.'
+      description: Describes a specific collection avaliable in service.
       type: object
       properties:
         name:
@@ -205,7 +225,7 @@ components:
 
     TrajectoryType:
       title: Trajectory.
-      description: 'This type represents a trajectory of a giving latitude and longitude.'
+      description: This type represents a trajectory of a giving latitude and longitude.
       type: object
       properties:
         trajectory:
@@ -237,12 +257,22 @@ components:
             end_date:
               type: string
             geometry:
-              type: string
+              type: object
+              oneOf:
+                - $ref: '#/components/schemas/Point'
+                - $ref: '#/components/schemas/Polygon'
+                - $ref: '#/components/schemas/MultiPolygon'
+              discriminator:
+                propertyName: type
+                mapping:
+                  Point: '#/components/schemas/Point'
+                  Polygon: '#/components/schemas/Polygon'
+                  MultiPolygon: '#/components/schemas/MultiPolygon'
 
 
     ExceptionType:
       title: The type of exception raised by the service.
-      description: 'Information about the exception An error code plus an optional description.'
+      description: Information about the exception An error code plus an optional description.
       type: object
       properties:
         code:
@@ -253,6 +283,8 @@ components:
           - code
 
     SpatialExtentType:
+      title: The spatial extent of an collection.
+      description: Information about the spatial extent of an collection.
       type: object
       properties:
           xmin:
@@ -264,7 +296,63 @@ components:
           ymax:
               type: number
 
+    Point2D:
+      title: The point with two dimensions.
+      description: The point definitionn with two dimensions.
+      type: array
+      items:
+        type: number
+      maxItems: 2
+      minItems: 2
+
+    Point:
+      title: Point
+      description: GeoJSon geometry
+      type: object
+      properties:
+        type:
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/Point2D'
+
+    Polygon:
+      title: Polygon
+      description: GeoJSon geometry
+      type: object
+      properties:
+        type:
+          type: string
+        coordinates:
+          type: array
+          items:
+            items:
+              $ref: '#/components/schemas/Point2D'
+
+    MultiPolygon:
+      title: MultiPolygon
+      description: GeoJSon geometry
+      type: object
+      properties:
+        type:
+          type: string
+        coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Point2D'
+
+
   responses:
+
+    Root:
+      description: 'The landing page provides the version of service.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RootType'
 
     Collections:
       description: 'JSON document with the names of collections offered by the service.'
