@@ -1,0 +1,20 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://www.esensing.dpi.inpe.br/wlts/root_response.json",
+  "type": "object",
+  "title": "WLTS - Root operation",
+  "description": "Returns the root entry point in the service",
+  "required": [
+    "wlts_version"
+  ],
+  "properties": {
+    "wlts_version": {
+      "$id": "#/properties/wlts_version",
+      "type": "string",
+      "title": "Root",
+      "description": "Defines the service version",
+      "example": "0.6"
+    }
+  }
+}
