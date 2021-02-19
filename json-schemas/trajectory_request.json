@@ -47,6 +47,12 @@
       "type": "string",
       "title": "End date",
       "description": "End date"
+    },
+    "geometry": {
+      "$id": "#/properties/geometry",
+      "type": "string",
+      "title": "Geometry",
+      "description": "Indicates the geometry must be returned. i.e `geometry=True`."
     }
   }
 }

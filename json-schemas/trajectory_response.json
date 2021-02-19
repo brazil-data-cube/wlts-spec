@@ -120,11 +120,94 @@
               "2007-01-01"
             ],
             "pattern": "^(.*)$"
+          },
+          "geometry": {
+            "type": "object",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/Point"
+              },
+              {
+                "$ref": "#/definitions/Polygon"
+              },
+              {
+                "$ref": "#/definitions/MultiPolygon"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "Point": "Point",
+                "Polygon": "Polygon",
+                "MultiPolygon": "MultiPolygon"
+              }
+            }
           }
         }
-
       }
-
+    },
+    "Point2D": {
+      "title": "The point with two dimensions.",
+      "description": "The point definitionn with two dimensions.",
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "maxItems": 2,
+      "minItems": 2
+    },
+    "Point": {
+      "title": "Point",
+      "description": "GeoJSon geometry",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "coordinates": {
+          "$ref": "#/definitions/Point2D"
+        }
+      }
+    },
+    "Polygon": {
+      "title": "Polygon",
+      "description": "GeoJSon geometry",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "items": {
+              "$ref": "#/definitions/Point2D"
+            }
+          }
+        }
+      }
+    },
+    "MultiPolygon": {
+      "title": "MultiPolygon",
+      "description": "GeoJSon geometry",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Point2D"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
