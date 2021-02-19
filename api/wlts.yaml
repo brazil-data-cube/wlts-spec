@@ -168,6 +168,8 @@ components:
         wlts_version:
           type: string
           example: '0.6'
+      required:
+        - wlts_version
 
     CollectionsType:
       title: Features and Images Collections.
@@ -240,7 +242,18 @@ components:
               date:
                 type: string
               geometry:
-                type: string
+                type: object
+                oneOf:
+                  - $ref: '#/components/schemas/Point'
+                  - $ref: '#/components/schemas/Polygon'
+                  - $ref: '#/components/schemas/MultiPolygon'
+                discriminator:
+                  propertyName: type
+                  mapping:
+                    Point: Point
+                    Polygon: Polygon
+                    MultiPolygon: MultiPolygon
+
         query:
           type: object
           properties:
@@ -257,17 +270,8 @@ components:
             end_date:
               type: string
             geometry:
-              type: object
-              oneOf:
-                - $ref: '#/components/schemas/Point'
-                - $ref: '#/components/schemas/Polygon'
-                - $ref: '#/components/schemas/MultiPolygon'
-              discriminator:
-                propertyName: type
-                mapping:
-                  Point: '#/components/schemas/Point'
-                  Polygon: '#/components/schemas/Polygon'
-                  MultiPolygon: '#/components/schemas/MultiPolygon'
+              type: string
+
 
 
     ExceptionType:
@@ -304,6 +308,7 @@ components:
         type: number
       maxItems: 2
       minItems: 2
+
 
     Point:
       title: Point
