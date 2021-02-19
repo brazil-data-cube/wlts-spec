@@ -257,7 +257,7 @@ components:
         query:
           type: object
           properties:
-            collenctions:
+            collections:
               type: array
               items:
                 type: string
