@@ -2,306 +2,409 @@ openapi: 3.0.0
 
 info:
 
-    title: Web Land Trajectory Service
+  title: Web Land Trajectory Service
 
-    description: >
-        Web Land Trajectory Service. You can find out more about WLTS at [https://github.com/brazil-data-cube/wlts](https://github.com/brazil-data-cube/wlts)
+  description: |
+    Web Land Trajectory Service (WLTS) is designed to facilitate the access the various land use and cover data collections through a tailored API. Provides the integration of datasets and brings the concept of Land Use and Cover Trajectories as a high level abstraction.
 
-         There are free and open source implementations based on this specification:
+    There are free and open source implementations based on this specification:
+      - [wlts](https://github.com/brazil-data-cube/wlts): is a Land Use and Cover Trajectory web service implemented in Python.
+      - [wlts.py](https://github.com/brazil-data-cube/wlts.py): is a client library for Python programmers that makes easy the access to trajectories from land use and cover maps.
+      - [lccs-ws](https://github.com/brazil-data-cube/lccs-ws): is a LCCS web server implemented in Python.
+      - [lccs.py](https://github.com/brazil-data-cube/lccs.py): is a client library for Python.
 
-        - [wlts](https://github.com/brazil-data-cube/wlts): is a Land Use and Cover Trajectory web service implemented in Python.
-
-        - [wlts.py](https://github.com/brazil-data-cube/wlts.py): is a client library for Python programmers that makes easy the access to trajectories from land use and cover maps.
-
-        - [lccs-ws](https://github.com/brazil-data-cube/lccs-ws): is a LCCS web server implemented in Python.
-
-        - [lccs.py](https://github.com/brazil-data-cube/lccs.py): is a client library for Python.
-
-    contact:
-        name: WLTS Specification
-        url: https://gitter.im/brazil-data-cube/community#
-        email: brazildatacube@dpi.inpe.br
-
-    license:
-        name: MIT
-        url: https://opensource.org/licenses/MIT
-
-    version: '0.4.0'
-
-    x-logo:
-        url: '../img/bdc-logo.png'
-        altText: Brazil Data Cube
-        href: 'https://github.com/brazil-data-cube'
+  contact:
+    name: Brazil Data Cube Team
+    url: 'https://discord.com/channels/689541907621085198#'
+    email: brazildatacube@inpe.br
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  version: '0.6'
+  x-logo:
+    url: ../img/bdc-logo.png
+    altText: Brazil Data Cube
+    href: 'https://github.com/brazil-data-cube'
 
 servers:
-    - url: 'http://www.esensing.dpi.inpe.br/wlts'
-      description: Production server
+  - url: 'https://brazildatacube.dpi.inpe.br/wlts/'
+    description: Production server
+  - url: 'https://brazildatacube.dpi.inpe.br/dev/wlts/'
+    description: Development server
 
-    - url: 'http://www.dev.esensing.dpi.inpe.br/wlts'
-      description: Development server
+
 paths:
 
-    '/list_collections':
-        get:
-            summary: List Collections
-            description: Retrieves the list of available data collections.
-            operationId: listCollections
-            responses:
-                '200':
-                    $ref: '#/components/responses/Collections'
-                '500':
-                    $ref: '#/components/responses/ServerError'
+  /:
+    get:
+      tags:
+        - Root
+      summary: Root Entry Point
+      description: Returns the root entry point in the service.
+      operationId: getRoot
+      responses:
+        '200':
+          $ref: '#/components/responses/Root'
 
-    '/describe_collection':
-        get:
-            summary: Describe Collection
-            description: Retrieves the metadata of a given data collection
-            operationId: describeCollection
-            parameters:
-                - $ref: '#/components/parameters/collection_id'
-            responses:
-                '200':
-                    $ref: '#/components/responses/CollectionMetadata'
-                '404':
-                    $ref: '#/components/responses/NotFound'
-                '500':
-                    $ref: '#/components/responses/ServerError'
+  /list_collections:
+    get:
+      tags:
+        - WLTS
+      summary: List Collections
+      description: 'Retrieves the list of available data collections.'
+      operationId: listCollections
+      responses:
+        '200':
+          $ref: '#/components/responses/Collections'
+        '500':
+          $ref: '#/components/responses/ServerError'
 
-    '/trajectory':
-        get:
-            summary: Trajectory
-            description: >
-                Retrieves the land use and cover trajectories from the data collections given
-                a location in space. The property `result` contains the feature identifier information, class, time, and the collection associated to the data item.
-            parameters:
-                - $ref: '#/components/parameters/collections'
-                - $ref: '#/components/parameters/latitude'
-                - $ref: '#/components/parameters/longitude'
-                - $ref: '#/components/parameters/start_date'
-                - $ref: '#/components/parameters/end_date'
 
-            responses:
-                '200':
-                    $ref: '#/components/responses/Trajectory'
-                '404':
-                    $ref: '#/components/responses/NotFound'
-                '500':
-                    $ref: '#/components/responses/ServerError'
+  /describe_collection:
+    get:
+      tags:
+        - WLTS
+      summary: Describe Collection
+      description: 'Retrieves the metadata of a given data collection.'
+      operationId: describeCollection
+      parameters:
+        - $ref: '#/components/parameters/collection_id'
+      responses:
+        '200':
+          $ref: '#/components/responses/CollectionMetadata'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /trajectory:
+    get:
+      tags:
+        - WLTS
+      summary: Trajectory
+      description: 'Retrieves the land use and cover trajectories from the data collections given a location in space. The property `result` contains the feature identifier information, class, time, and the collection associated to the data item.'
+      parameters:
+        - $ref: '#/components/parameters/collections'
+        - $ref: '#/components/parameters/latitude'
+        - $ref: '#/components/parameters/longitude'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+        - $ref: '#/components/parameters/geometry'
+      responses:
+        '200':
+          $ref: '#/components/responses/Trajectory'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
 
 components:
 
-    parameters:
+  parameters:
 
-        collection_id:
-            name: collection_id
-            description: >
-                Identifier (name) of a collection.
-            in: query
-            required: true
-            schema:
-                type: string
+    collection_id:
+      name: collection_id
+      description: Identifier (name) of a collection.
+      in: query
+      required: true
+      schema:
+        type: string
 
+    collections:
+      name: collections
+      description: List of Identifier (name) of collections delimited by comma. i.e  `collections=prodes,deter`
+      in: query
+      required: false
+      schema:
+        type: string
+
+    latitude:
+      name: latitude
+      description: Latitude coordinate in Datum WGS84 (code EPSG 4326). i.e `latitude=−6.99`.
+      in: query
+      required: true
+      schema:
+        type: number
+
+    longitude:
+      name: longitude
+      description: Longitude coordinate in Datum WGS84 (code EPSG 4326). i.e `latitude=−6.99`.
+      in: query
+      required: true
+      schema:
+        type: number
+
+    start_date:
+      name: start_date
+      description: Start date. i.e `start_date=2007-01-01`.
+      in: query
+      required: false
+      schema:
+        type: string
+
+    end_date:
+      name: end_date
+      description: End date. i.e `end_date=2017-12-31`.
+      in: query
+      required: false
+      schema:
+        type: string
+
+    geometry:
+      name: geometry
+      description: Indicates the geometry must be returned. i.e `geometry=True`.
+      in: query
+      required: false
+      schema:
+        type: string
+
+  schemas:
+
+    RootType:
+      title: Landing Page
+      description: The landing page provides the service version.
+      type: object
+      properties:
+        wlts_version:
+          type: string
+          example: '0.6'
+      required:
+        - wlts_version
+
+    CollectionsType:
+      title: Features and Images Collections.
+      description: Indicate the  type of a collection in service.
+      type: object
+      properties:
         collections:
-            name: collections
-            description: >
-                List of Identifier (name) of collections delimited by comma. i.e  `collections=prodes,deter`
-            in: query
-            required: false
-            schema:
-                type: string
+          type: array
+          items:
+            type: string
 
-        latitude:
-            name: latitude
-            description: >
-                Latitude coordinate. i.e `latitude=−6.99`.
-            in: query
-            required: true
-            schema:
-                type: number
+    CollectionMetadataType:
+      title: Collection.
+      description: Describes a specific collection avaliable in service.
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        detail:
+          type: string
+        collection_type:
+          type: string
+        resolution_unit:
+          type: object
+          properties:
+            unit:
+              type: string
+            value:
+              type: number
+        period:
+          type: object
+          properties:
+            start_date:
+              type: string
+            end_date:
+              type: string
+        classification_system:
+          type: object
+          properties:
+            classification_system_id:
+              type: string
+            classification_system_name:
+              type: string
+            classification_system_version:
+              type: string
+        spatial_extent:
+          $ref: '#/components/schemas/SpatialExtentType'
+      required:
+        - name
+        - description
+        - collection_type
+        - resolution_unit
+        - period
+        - classification_system
 
-        longitude:
-            name: longitude
-            description: >
-                Longitude coordinate. i.e `latitude=−6.99`.
-            in: query
-            required: true
-            schema:
-                type: number
+    TrajectoryType:
+      title: Trajectory.
+      description: This type represents a trajectory of a giving latitude and longitude.
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            trajectory:
+              type: array
+              items:
+                type: object
+                properties:
+                  class:
+                    type: string
+                  collection:
+                    type: string
+                  date:
+                    type: string
+                  geometry:
+                    type: object
+                    oneOf:
+                      - $ref: '#/components/schemas/Point'
+                      - $ref: '#/components/schemas/Polygon'
+                      - $ref: '#/components/schemas/MultiPolygon'
+                    discriminator:
+                      propertyName: type
+                      mapping:
+                        Point: Point
+                        Polygon: Polygon
+                        MultiPolygon: MultiPolygon
 
-        start_date:
-            name: start_date
-            description: >
-                Start date. i.e `start_date=2007-01-01`.
-            in: query
-            required: false
-            schema:
-                type: string
-
-        end_date:
-            name: end_date
-            description: >
-                End date. i.e `end_date=2017-12-31`.
-            in: query
-            required: false
-            schema:
-                type: string
-
-    schemas:
-
-        CollectionsType:
-            title: Features and Images Collections.
-            type: object
-            properties:
+            query:
+              type: object
+              properties:
                 collections:
-                    type: array
-                    items:
-                        type: string
-
-        CollectionMetadataType:
-            title: Collection.
-            description: >
-                Describes a collection.
-            type: object
-            properties:
-                name:
+                  type: array
+                  items:
                     type: string
-                description:
-                    type: string
-                detail:
-                    type: string
-                collection_type:
-                    type: string
-                resolution_unit:
-                    type: object
-                    properties:
-                        unit:
-                            type: string
-                        value:
-                            type: number
-                period:
-                    type: object
-                    properties:
-                        start_date:
-                            type: string
-                        end_date:
-                            type: string
-                classification_system:
-                    type: object
-                    properties:
-                        classification_system_id:
-                            type: string
-                        classification_system_name:
-                            type: string
-                spatial_extent:
-                    $ref: '#/components/schemas/SpatialExtentType'
-            required:
-                - name
-                - description
-                - collection_type
-                - resolution_unit
-                - period
-                - classification_system
+                longitude:
+                  type: number
+                latitude:
+                  type: number
+                start_date:
+                  type: string
+                end_date:
+                  type: string
+                geometry:
+                  type: string
 
-        TrajectoryType:
-            title: Trajectory.
-            description: >
-                This type represents a trajectory of a giving latitude and longitude.
-            type: object
-            properties:
-                trajectory:
-                    type: array
-                    items:
-                        type: object
-                        properties:
-                            class:
-                                type: string
-                            collection:
-                                type: string
-                            date:
-                                type: string
-                query:
-                    type: object
-                    properties:
-                        collenctions:
-                            type: array
-                            items:
-                                type: string
-                        longitude:
-                            type: number
-                        latitude:
-                            type: number
-                        start_date:
-                            type: string
-                        end_date:
-                            type: string
 
-        ExceptionType:
-            title: The type of exception raised by the service.
-            description: >
-                Information about the exception An error code plus an optional description
-            type: object
-            properties:
-                code:
-                    type: string
-                description:
-                    type: string
-            required:
-                - code
 
-        SpatialExtentType:
-            type: object
-            properties:
-                xmin:
-                    type: number
-                xmax:
-                    type: number
-                ymin:
-                    type: number
-                ymax:
-                    type: number
+    ExceptionType:
+      title: The type of exception raised by the service.
+      description: Information about the exception An error code plus an optional description.
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+      required:
+        - code
 
-    responses:
+    SpatialExtentType:
+      title: The spatial extent of an collection.
+      description: Information about the spatial extent of an collection.
+      type: object
+      properties:
+        xmin:
+          type: number
+        xmax:
+          type: number
+        ymin:
+          type: number
+        ymax:
+          type: number
 
-        Collections:
-            description: >
-                JSON document with the names of collections offered by the service.
-            content:
-                application/json:
-                    schema:
-                        $ref: '#/components/schemas/CollectionsType'
+    Point2D:
+      title: The point with two dimensions.
+      description: The point definitionn with two dimensions.
+      type: array
+      items:
+        type: number
+      maxItems: 2
+      minItems: 2
 
-        CollectionMetadata:
-            description: >
-                JSON document describing the classification collection.
-            content:
-                application/json:
-                    schema:
-                        $ref: '#/components/schemas/CollectionMetadataType'
 
-        Trajectory:
-            description: >
-                JSON document with trajectory of a givin location.
-            content:
-                application/json:
-                    schema:
-                        $ref: '#/components/schemas/TrajectoryType'
+    Point:
+      title: Point
+      description: GeoJSon geometry
+      type: object
+      properties:
+        type:
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/Point2D'
 
-        ServerError:
-            description: >
-                A JSON document informing that an error has occurred in the
-                system.
-            content:
-                application/json:
-                    schema:
-                        $ref: '#/components/schemas/ExceptionType'
-                text/html:
-                    schema:
-                        type: string
+    Polygon:
+      title: Polygon
+      description: GeoJSon geometry
+      type: object
+      properties:
+        type:
+          type: string
+        coordinates:
+          type: array
+          items:
+            items:
+              $ref: '#/components/schemas/Point2D'
 
-        NotFound:
-            description: >
-                The requested URI was not found.
+    MultiPolygon:
+      title: MultiPolygon
+      description: GeoJSon geometry
+      type: object
+      properties:
+        type:
+          type: string
+        coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Point2D'
 
-        InvalidParameter:
-            description: >
-                A query parameter has an invalid value.
+
+  responses:
+
+    Root:
+      description: 'The landing page provides the version of service.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RootType'
+
+    Collections:
+      description: 'JSON document with the names of collections offered by the service.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CollectionsType'
+
+    CollectionMetadata:
+      description: 'JSON document describing the classification collection.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CollectionMetadataType'
+
+    Trajectory:
+      description: 'JSON document with trajectory of a givin location.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TrajectoryType'
+
+    ServerError:
+      description: 'A JSON document informing that an error has occurred in the system.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExceptionType'
+        text/html:
+          schema:
+            type: string
+
+    InvalidParameter:
+      description: 'A query parameter has an invalid value.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExceptionType'
+
+    NotFound:
+      description: 'The requested URI was not found.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExceptionType'

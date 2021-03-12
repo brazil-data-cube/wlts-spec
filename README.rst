@@ -1,6 +1,6 @@
 ..
     This file is part of Web Land Trajectory Service Specification.
-    Copyright (C) 2019-20 INPE.
+    Copyright (C) 2019-2021 INPE.
 
    Web Land Trajectory Service Specification is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
@@ -60,7 +60,7 @@ Overview of Service Operations
 
 - The ``/describe_collection`` operation when queried with a ``GET`` method returns the metadata of a given data collection.
 
-- The ``/trajectory`` operation when queried with a ``GET`` method returns the land use and cover trajectory from the collections given a location in space. The property result contains the feature identifier information, class, time, and the collection associated to the data item.
+- The ``/trajectory`` operation when queried with a ``GET`` method returns the land use and cover trajectory from the collections given a location in space. The property result contains the feature identifier information, class, time, and the collection associated to the data item. If requested, the collection geometry can also be returned
 
 
 Building the Documentation
@@ -107,7 +107,7 @@ License
 =======
 
 .. admonition::
-    Copyright (C) 2019-2020 INPE.
+    Copyright (C) 2019-2021 INPE.
 
     Web Land Trajectory Service is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
