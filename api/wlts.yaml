@@ -232,47 +232,50 @@ components:
       description: This type represents a trajectory of a giving latitude and longitude.
       type: object
       properties:
-        trajectory:
-          type: array
-          items:
-            type: object
-            properties:
-              class:
-                type: string
-              collection:
-                type: string
-              date:
-                type: string
-              geometry:
-                type: object
-                oneOf:
-                  - $ref: '#/components/schemas/Point'
-                  - $ref: '#/components/schemas/Polygon'
-                  - $ref: '#/components/schemas/MultiPolygon'
-                discriminator:
-                  propertyName: type
-                  mapping:
-                    Point: Point
-                    Polygon: Polygon
-                    MultiPolygon: MultiPolygon
-
-        query:
+        result:
           type: object
           properties:
-            collections:
+            trajectory:
               type: array
               items:
-                type: string
-            longitude:
-              type: number
-            latitude:
-              type: number
-            start_date:
-              type: string
-            end_date:
-              type: string
-            geometry:
-              type: string
+                type: object
+                properties:
+                  class:
+                    type: string
+                  collection:
+                    type: string
+                  date:
+                    type: string
+                  geometry:
+                    type: object
+                    oneOf:
+                      - $ref: '#/components/schemas/Point'
+                      - $ref: '#/components/schemas/Polygon'
+                      - $ref: '#/components/schemas/MultiPolygon'
+                    discriminator:
+                      propertyName: type
+                      mapping:
+                        Point: Point
+                        Polygon: Polygon
+                        MultiPolygon: MultiPolygon
+
+            query:
+              type: object
+              properties:
+                collections:
+                  type: array
+                  items:
+                    type: string
+                longitude:
+                  type: number
+                latitude:
+                  type: number
+                start_date:
+                  type: string
+                end_date:
+                  type: string
+                geometry:
+                  type: string
 
 
 
