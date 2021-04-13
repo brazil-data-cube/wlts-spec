@@ -10,6 +10,15 @@
 Changes
 =======
 
+Version 0.6.0 (2021-04-13)
+--------------------------
+
+- Return a dictionary with wlts_version in root (`#23 <https://github.com/brazil-data-cube/wlts-spec/issues/23>`_).
+
+- Add GeoJson specification (`#22 <https://github.com/brazil-data-cube/wlts-spec/issues/22>`_).
+
+- Review the OpenAPI definition (`#19 <https://github.com/brazil-data-cube/wlts-spec/issues/19>`_).
+
 
 Version 0.4.0-0 (2020-12-11)
 ----------------------------
