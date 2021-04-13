@@ -10,8 +10,8 @@
 Changes
 =======
 
-Version 0.6.0 (2021-04-12)
----------------------------
+Version 0.6.0 (2021-04-13)
+--------------------------
 
 - Return a dictionary with wlts_version in root (`#23 <https://github.com/brazil-data-cube/wlts-spec/issues/23>`_).
 
