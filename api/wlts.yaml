@@ -20,7 +20,7 @@ info:
   license:
     name: MIT
     url: 'https://opensource.org/licenses/MIT'
-  version: '0.6'
+  version: '0.8'
   x-logo:
     url: ../img/bdc-logo.png
     altText: Brazil Data Cube
@@ -114,7 +114,7 @@ components:
       name: collections
       description: List of Identifier (name) of collections delimited by comma. i.e  `collections=prodes,deter`
       in: query
-      required: false
+      required: true
       schema:
         type: string
 
