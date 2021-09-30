@@ -53,6 +53,8 @@ paths:
       summary: List Collections
       description: 'Retrieves the list of available data collections.'
       operationId: listCollections
+      parameters:
+        - $ref: '#/components/parameters/access_token'
       responses:
         '200':
           $ref: '#/components/responses/Collections'
@@ -69,6 +71,7 @@ paths:
       operationId: describeCollection
       parameters:
         - $ref: '#/components/parameters/collection_id'
+        - $ref: '#/components/parameters/access_token'
       responses:
         '200':
           $ref: '#/components/responses/CollectionMetadata'
@@ -90,6 +93,7 @@ paths:
         - $ref: '#/components/parameters/start_date'
         - $ref: '#/components/parameters/end_date'
         - $ref: '#/components/parameters/geometry'
+        - $ref: '#/components/parameters/access_token'
       responses:
         '200':
           $ref: '#/components/responses/Trajectory'
@@ -155,6 +159,14 @@ components:
       description: Indicates the geometry must be returned. i.e `geometry=True`.
       in: query
       required: false
+      schema:
+        type: string
+
+    access_token:
+      name: "access_token"
+      in: query
+      required: true
+      description: "Personal Access Token, found in the BDC authenticator"
       schema:
         type: string
 
