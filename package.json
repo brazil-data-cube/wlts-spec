@@ -1,14 +1,14 @@
 {
   "name": "wlts-spec",
-  "version": "0.8.0",
+  "version": "1.1.0",
   "description": "Web Land Trajectory Service - Specification",
   "main": "index.js",
   "scripts": {
-    "build": "redoc-cli bundle api/wlts.yaml --output dist/index.html"
+    "build": "redocly build-docs api/wlts.yaml --output dist/index.html"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "redoc-cli": "^0.9.6"
+    "@redocly/cli": "^2.60.0"
   }
 }

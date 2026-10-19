@@ -20,7 +20,7 @@ info:
   license:
     name: MIT
     url: 'https://opensource.org/licenses/MIT'
-  version: '0.8'
+  version: '1.1'
   x-logo:
     url: ../img/bdc-logo.png
     altText: Brazil Data Cube
@@ -45,6 +45,21 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Root'
+
+  /docs:
+    get:
+      tags:
+        - Root
+      summary: API Documentation
+      description: 'Serves the Swagger UI page for this OpenAPI specification.'
+      operationId: getDocs
+      responses:
+        '200':
+          description: 'The Swagger UI HTML page.'
+          content:
+            text/html:
+              schema:
+                type: string
 
   /list_collections:
     get:
@@ -93,6 +108,7 @@ paths:
         - $ref: '#/components/parameters/start_date'
         - $ref: '#/components/parameters/end_date'
         - $ref: '#/components/parameters/geometry'
+        - $ref: '#/components/parameters/language'
         - $ref: '#/components/parameters/access_token'
       responses:
         '200':
@@ -162,10 +178,22 @@ components:
       schema:
         type: string
 
+    language:
+      name: language
+      description: 'Language used to translate the class names. i.e `language=pt-br`.'
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - pt-br
+          - en
+        default: pt-br
+
     access_token:
       name: "access_token"
       in: query
-      required: true
+      required: false
       description: "Personal Access Token, found in the BDC authenticator"
       schema:
         type: string
@@ -174,14 +202,47 @@ components:
 
     RootType:
       title: Landing Page
-      description: The landing page provides the service version.
+      description: The landing page provides the service version and the supported languages.
       type: object
       properties:
-        wlts_version:
+        version:
           type: string
-          example: '0.6'
+          example: '1.1.0'
+        application_name:
+          type: string
+          example: 'Web Land Trajectory Service'
+        supported_language:
+          type: array
+          items:
+            type: object
+            properties:
+              language:
+                type: string
+                example: 'pt-br'
+              description:
+                type: string
+                example: 'Brazilian Portuguese'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkType'
       required:
-        - wlts_version
+        - version
+        - application_name
+
+    LinkType:
+      title: Link
+      description: A hypermedia link related to the resource.
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+        type:
+          type: string
+        title:
+          type: string
 
     CollectionsType:
       title: Features and Images Collections.
@@ -200,13 +261,19 @@ components:
       properties:
         name:
           type: string
+        title:
+          type: string
         description:
           type: string
         detail:
           type: string
         collection_type:
           type: string
-        resolution_unit:
+        deprecated:
+          type: boolean
+        is_public:
+          type: boolean
+        temporal_resolution:
           type: object
           properties:
             unit:
@@ -220,30 +287,77 @@ components:
               type: string
             end_date:
               type: string
+        spatial_extent:
+          $ref: '#/components/schemas/SpatialExtentType'
         classification_system:
           type: object
           properties:
-            classification_system_id:
+            id:
               type: string
-            classification_system_name:
+            name:
               type: string
-            classification_system_version:
+            title:
               type: string
-        spatial_extent:
-          $ref: '#/components/schemas/SpatialExtentType'
+            type:
+              type: string
+            version:
+              type: string
+        datasource:
+          type: object
+          properties:
+            host:
+              type: string
+            version:
+              type: string
+            layers:
+              type: array
+              items:
+                type: object
+                properties:
+                  layer_name:
+                    type: string
+                  workspace:
+                    type: string
+                  temporal_property:
+                    type: string
+                  title:
+                    type: string
       required:
         - name
         - description
         - collection_type
-        - resolution_unit
+        - temporal_resolution
         - period
-        - classification_system
+        - spatial_extent
+        - datasource
 
     TrajectoryType:
       title: Trajectory.
       description: This type represents a trajectory of a giving latitude and longitude.
       type: object
+      required:
+        - query
+        - result
       properties:
+        query:
+          type: object
+          properties:
+            collections:
+              type: array
+              items:
+                type: string
+            longitude:
+              type: number
+            latitude:
+              type: number
+            start_date:
+              type: string
+            end_date:
+              type: string
+            geometry:
+              type: string
+            language:
+              type: string
         result:
           type: object
           properties:
@@ -258,7 +372,7 @@ components:
                     type: string
                   date:
                     type: string
-                  geometry:
+                  geom:
                     type: object
                     oneOf:
                       - $ref: '#/components/schemas/Point'
@@ -270,24 +384,6 @@ components:
                         Point: Point
                         Polygon: Polygon
                         MultiPolygon: MultiPolygon
-
-            query:
-              type: object
-              properties:
-                collections:
-                  type: array
-                  items:
-                    type: string
-                longitude:
-                  type: number
-                latitude:
-                  type: number
-                start_date:
-                  type: string
-                end_date:
-                  type: string
-                geometry:
-                  type: string
 
 
 

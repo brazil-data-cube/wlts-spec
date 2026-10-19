@@ -121,7 +121,7 @@
             ],
             "pattern": "^(.*)$"
           },
-          "geometry": {
+          "geom": {
             "type": "object",
             "oneOf": [
               {
@@ -160,9 +160,16 @@
       "title": "Point",
       "description": "GeoJSon geometry",
       "type": "object",
+      "required": [
+        "type",
+        "coordinates"
+      ],
       "properties": {
         "type": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "Point"
+          ]
         },
         "coordinates": {
           "$ref": "#/definitions/Point2D"
@@ -173,9 +180,16 @@
       "title": "Polygon",
       "description": "GeoJSon geometry",
       "type": "object",
+      "required": [
+        "type",
+        "coordinates"
+      ],
       "properties": {
         "type": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "Polygon"
+          ]
         },
         "coordinates": {
           "type": "array",
@@ -191,9 +205,16 @@
       "title": "MultiPolygon",
       "description": "GeoJSon geometry",
       "type": "object",
+      "required": [
+        "type",
+        "coordinates"
+      ],
       "properties": {
         "type": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "MultiPolygon"
+          ]
         },
         "coordinates": {
           "type": "array",
