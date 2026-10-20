@@ -45,12 +45,14 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Root'
+        '500':
+          $ref: '#/components/responses/ServerError'
 
-  /list_collections:
+  /collections:
     get:
       tags:
         - WLTS
-      summary: List Collections
+      summary: Return the list of all collections avaliable in service
       description: 'Retrieves the list of available data collections.'
       operationId: listCollections
       parameters:
@@ -61,8 +63,7 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 
-
-  /describe_collection:
+  /collections/{collection_id}':
     get:
       tags:
         - WLTS
@@ -102,6 +103,7 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 
+
 components:
 
   parameters:
@@ -109,11 +111,11 @@ components:
     collection_id:
       name: collection_id
       description: Identifier (name) of a collection.
-      in: query
+      in: path
       required: true
       schema:
         type: string
-
+        
     collections:
       name: collections
       description: List of Identifier (name) of collections delimited by comma. i.e  `collections=prodes,deter`
@@ -165,10 +167,11 @@ components:
     access_token:
       name: "access_token"
       in: query
-      required: true
+      required: false
       description: "Personal Access Token, found in the BDC authenticator"
       schema:
         type: string
+
 
   schemas:
 
@@ -177,11 +180,15 @@ components:
       description: The landing page provides the service version.
       type: object
       properties:
-        wlts_version:
+        version:
           type: string
           example: '0.6'
+        application_name:
+          type: string
+          example: 'Web Land Trajectory Service'
       required:
-        - wlts_version
+        - version
+        - application_name
 
     CollectionsType:
       title: Features and Images Collections.
@@ -194,50 +201,96 @@ components:
             type: string
 
     CollectionMetadataType:
-      title: Collection.
+      title: The Collection Metadata.
       description: Describes a specific collection avaliable in service.
       type: object
       properties:
+        title:
+          type: string
         name:
           type: string
         description:
           type: string
         detail:
           type: string
-        collection_type:
+        version:
+          type: integer
+        deprecated:
           type: string
-        resolution_unit:
+        is_public:
+          type: boolean
+        properties:
           type: object
           properties:
-            unit:
+            resolution:
+              type: integer
+            type:
               type: string
-            value:
-              type: number
-        period:
+            scale:
+              type: string
+            spatial_reference_system:
+              type: string
+            classification_system:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                version:
+                  type: string
+                type:
+                  type: string       	
+        extent:
           type: object
           properties:
-            start_date:
-              type: string
-            end_date:
-              type: string
-        classification_system:
+            spatial:
+              $ref: '#/components/schemas/SpatialExtentType'
+            temporal:
+              type: object
+              properties:
+                period:
+                  type: object
+                  properties:
+                    start_date:
+                      type: string
+                    end_date:
+                      type: string
+                temporal_resolution:
+                  type: object
+                  properties:
+                    unit:
+                      type: string
+                    value:
+                      type: number
+                time_line:
+                  type: array
+                  items:
+                    type: string
+        datasource:
           type: object
           properties:
-            classification_system_id:
+            host:
               type: string
-            classification_system_name:
-              type: string
-            classification_system_version:
-              type: string
-        spatial_extent:
-          $ref: '#/components/schemas/SpatialExtentType'
+            layers:
+              type: array
+              items:
+                type: object
+                oneOf:
+                    - $ref: '#/components/schemas/DescribeOne'
+                    - $ref: '#/components/schemas/DescribeTwo'
+                    - $ref: '#/components/schemas/DescribeThree'
+
       required:
+        - title
         - name
         - description
-        - collection_type
-        - resolution_unit
-        - period
-        - classification_system
+        - version
+        - deprecated
+        - is_public
+        - properties
+        - extent
+        - datasource
 
     TrajectoryType:
       title: Trajectory.
@@ -289,8 +342,6 @@ components:
                 geometry:
                   type: string
 
-
-
     ExceptionType:
       title: The type of exception raised by the service.
       description: Information about the exception An error code plus an optional description.
@@ -317,6 +368,49 @@ components:
         ymax:
           type: number
 
+    DescribeOne:
+      title: alguma coisa
+      description: alguma coisa
+      type: object
+      properties:
+        data_field:
+          type: string
+        layer_name:
+          type: string
+        workspace:
+          type: string
+    
+    DescribeTwo:
+      title: alguma coisa
+      description: alguma coisa
+      type: object
+      properties:
+        temporal_property:
+          type: string
+        layer_name:
+          type: string
+        workspace:
+          type: string
+          
+    DescribeThree:
+      title: alguma coisa
+      description: alguma coisa
+      type: object
+      properties:
+        layer_name:
+          type: string
+        workspace:
+          type: string
+        properties:
+          type: array
+          items:
+            type: object
+            properties:
+              class_property:
+                type: string
+              temporal_property:
+                type: string
+
     Point2D:
       title: The point with two dimensions.
       description: The point definitionn with two dimensions.
@@ -325,7 +419,6 @@ components:
         type: number
       maxItems: 2
       minItems: 2
-
 
     Point:
       title: Point
