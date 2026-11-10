@@ -18,20 +18,17 @@ info:
     url: 'https://discord.com/channels/689541907621085198#'
     email: brazildatacube@inpe.br
   license:
-    name: MIT
-    url: 'https://opensource.org/licenses/MIT'
-  version: '1.1'
+    name: GPLv3
+    url: 'https://opensource.org/license/gpl-3.0'
+  version: '3.0'
   x-logo:
     url: ../img/bdc-logo.png
     altText: Brazil Data Cube
     href: 'https://github.com/brazil-data-cube'
 
 servers:
-  - url: 'https://brazildatacube.dpi.inpe.br/wlts/'
+  - url: 'https://data.inpe.br/bdc/wlts/v1'
     description: Production server
-  - url: 'https://brazildatacube.dpi.inpe.br/dev/wlts/'
-    description: Development server
-
 
 paths:
 
@@ -207,7 +204,7 @@ components:
       properties:
         version:
           type: string
-          example: '1.1.0'
+          example: '1.4.0'
         application_name:
           type: string
           example: 'Web Land Trajectory Service'

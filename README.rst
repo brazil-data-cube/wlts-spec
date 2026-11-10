@@ -1,18 +1,26 @@
 ..
     This file is part of Web Land Trajectory Service Specification.
     Copyright (C) 2019-2021 INPE.
+    
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-   Web Land Trajectory Service Specification is free software; you can redistribute it and/or modify it
-    under the terms of the MIT License; see LICENSE file for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
 
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
 
 ==================================
 Web Land Trajectory Service - Spec
 ==================================
 
 
-.. image:: https://img.shields.io/badge/license-MIT-green
-        :target: https://github.com//brazil-data-cube/wlts-spec/blob/master/LICENSE
+.. image:: https://img.shields.io/badge/License-GPLv3-blue.svg        :target: https://github.com//brazil-data-cube/wlts-spec/blob/master/LICENSE
         :alt: Software License
 
 .. image:: https://img.shields.io/badge/lifecycle-maturing-blue.svg
@@ -107,7 +115,9 @@ License
 =======
 
 .. admonition::
-    Copyright (C) 2019-2021 INPE.
+    Copyright (C) 2026 INPE.
 
-    Web Land Trajectory Service is free software; you can redistribute it and/or modify it
-    under the terms of the MIT License; see LICENSE file for more details.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
