@@ -20,7 +20,8 @@ Web Land Trajectory Service - Spec
 ==================================
 
 
-.. image:: https://img.shields.io/badge/License-GPLv3-blue.svg        :target: https://github.com//brazil-data-cube/wlts-spec/blob/master/LICENSE
+.. image:: https://img.shields.io/badge/License-GPLv3-blue.svg        
+        :target: https://github.com//brazil-data-cube/wlts-spec/blob/master/LICENSE
         :alt: Software License
 
 .. image:: https://img.shields.io/badge/lifecycle-maturing-blue.svg
@@ -99,7 +100,7 @@ After that, generate the documentation:
 
 .. code-block:: shell
 
-    $ npm run build
+    $ npm install
 
 
 The above command will create a folder named ``dist`` with the bundled file index.html. You may open it in your web browser or may serve it with an HTTP Server.
@@ -108,7 +109,7 @@ For Python developers, you can serve the HTML with:
 
 .. code-block:: shell
 
-        python3.7 -m http.server 8080 --directory dist
+        python3.14 -m http.server 8080 --directory dist
 
 
 License
