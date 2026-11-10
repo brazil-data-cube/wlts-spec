@@ -18,20 +18,17 @@ info:
     url: 'https://discord.com/channels/689541907621085198#'
     email: brazildatacube@inpe.br
   license:
-    name: MIT
-    url: 'https://opensource.org/licenses/MIT'
-  version: '0.8'
+    name: GPLv3
+    url: 'https://opensource.org/license/gpl-3.0'
+  version: '3.0'
   x-logo:
     url: ../img/bdc-logo.png
     altText: Brazil Data Cube
     href: 'https://github.com/brazil-data-cube'
 
 servers:
-  - url: 'https://brazildatacube.dpi.inpe.br/wlts/'
+  - url: 'https://data.inpe.br/bdc/wlts/v1'
     description: Production server
-  - url: 'https://brazildatacube.dpi.inpe.br/dev/wlts/'
-    description: Development server
-
 
 paths:
 
@@ -48,7 +45,22 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 
-  /collections:
+  /docs:
+    get:
+      tags:
+        - Root
+      summary: API Documentation
+      description: 'Serves the Swagger UI page for this OpenAPI specification.'
+      operationId: getDocs
+      responses:
+        '200':
+          description: 'The Swagger UI HTML page.'
+          content:
+            text/html:
+              schema:
+                type: string
+
+  /list_collections:
     get:
       tags:
         - WLTS
@@ -94,6 +106,7 @@ paths:
         - $ref: '#/components/parameters/start_date'
         - $ref: '#/components/parameters/end_date'
         - $ref: '#/components/parameters/geometry'
+        - $ref: '#/components/parameters/language'
         - $ref: '#/components/parameters/access_token'
       responses:
         '200':
@@ -164,6 +177,18 @@ components:
       schema:
         type: string
 
+    language:
+      name: language
+      description: 'Language used to translate the class names. i.e `language=pt-br`.'
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - pt-br
+          - en
+        default: pt-br
+
     access_token:
       name: "access_token"
       in: query
@@ -177,18 +202,47 @@ components:
 
     RootType:
       title: Landing Page
-      description: The landing page provides the service version.
+      description: The landing page provides the service version and the supported languages.
       type: object
       properties:
         version:
           type: string
-          example: '0.6'
+          example: '1.4.0'
         application_name:
           type: string
           example: 'Web Land Trajectory Service'
+        supported_language:
+          type: array
+          items:
+            type: object
+            properties:
+              language:
+                type: string
+                example: 'pt-br'
+              description:
+                type: string
+                example: 'Brazilian Portuguese'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkType'
       required:
         - version
         - application_name
+
+    LinkType:
+      title: Link
+      description: A hypermedia link related to the resource.
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+        type:
+          type: string
+        title:
+          type: string
 
     CollectionsType:
       title: Features and Images Collections.
@@ -209,6 +263,8 @@ components:
           type: string
         name:
           type: string
+        title:
+          type: string
         description:
           type: string
         detail:
@@ -219,7 +275,7 @@ components:
           type: string
         is_public:
           type: boolean
-        properties:
+        temporal_resolution:
           type: object
           properties:
             resolution:
@@ -230,73 +286,78 @@ components:
               type: string
             spatial_reference_system:
               type: string
-            classification_system:
-              type: object
-              properties:
-                id:
-                  type: string
-                name:
-                  type: string
-                version:
-                  type: string
-                type:
-                  type: string       	
-        extent:
+        spatial_extent:
+          $ref: '#/components/schemas/SpatialExtentType'
+        classification_system:
           type: object
           properties:
-            spatial:
-              $ref: '#/components/schemas/SpatialExtentType'
-            temporal:
-              type: object
-              properties:
-                period:
-                  type: object
-                  properties:
-                    start_date:
-                      type: string
-                    end_date:
-                      type: string
-                temporal_resolution:
-                  type: object
-                  properties:
-                    unit:
-                      type: string
-                    value:
-                      type: number
-                time_line:
-                  type: array
-                  items:
-                    type: string
+            id:
+              type: string
+            name:
+              type: string
+            title:
+              type: string
+            type:
+              type: string
+            version:
+              type: string
         datasource:
           type: object
           properties:
             host:
               type: string
+            version:
+              type: string
             layers:
               type: array
               items:
                 type: object
-                oneOf:
-                    - $ref: '#/components/schemas/DescribeOne'
-                    - $ref: '#/components/schemas/DescribeTwo'
-                    - $ref: '#/components/schemas/DescribeThree'
-
+                properties:
+                  layer_name:
+                    type: string
+                  workspace:
+                    type: string
+                  temporal_property:
+                    type: string
+                  title:
+                    type: string
       required:
         - title
         - name
         - description
-        - version
-        - deprecated
-        - is_public
-        - properties
-        - extent
+        - collection_type
+        - temporal_resolution
+        - period
+        - spatial_extent
         - datasource
 
     TrajectoryType:
       title: Trajectory.
       description: This type represents a trajectory of a giving latitude and longitude.
       type: object
+      required:
+        - query
+        - result
       properties:
+        query:
+          type: object
+          properties:
+            collections:
+              type: array
+              items:
+                type: string
+            longitude:
+              type: number
+            latitude:
+              type: number
+            start_date:
+              type: string
+            end_date:
+              type: string
+            geometry:
+              type: string
+            language:
+              type: string
         result:
           type: object
           properties:
@@ -311,7 +372,7 @@ components:
                     type: string
                   date:
                     type: string
-                  geometry:
+                  geom:
                     type: object
                     oneOf:
                       - $ref: '#/components/schemas/Point'
@@ -324,23 +385,7 @@ components:
                         Polygon: Polygon
                         MultiPolygon: MultiPolygon
 
-            query:
-              type: object
-              properties:
-                collections:
-                  type: array
-                  items:
-                    type: string
-                longitude:
-                  type: number
-                latitude:
-                  type: number
-                start_date:
-                  type: string
-                end_date:
-                  type: string
-                geometry:
-                  type: string
+
 
     ExceptionType:
       title: The type of exception raised by the service.
