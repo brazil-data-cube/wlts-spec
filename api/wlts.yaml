@@ -263,8 +263,6 @@ components:
           type: string
         name:
           type: string
-        title:
-          type: string
         description:
           type: string
         detail:
