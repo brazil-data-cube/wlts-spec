@@ -411,9 +411,9 @@ components:
         ymax:
           type: number
 
-    DescribeOne:
-      title: alguma coisa
-      description: alguma coisa
+    FeatureLayerType:
+      title: Feature Collection Layer
+      description: Layer of a feature collection where the temporal information is stored in a data field.
       type: object
       properties:
         data_field:
@@ -422,10 +422,12 @@ components:
           type: string
         workspace:
           type: string
-    
-    DescribeTwo:
-      title: alguma coisa
-      description: alguma coisa
+        title:
+          type: string
+
+    ImageLayerType:
+      title: Image Collection Layer
+      description: Layer of an image collection. The `temporal_property` indicates the time dimension of the coverage.
       type: object
       properties:
         temporal_property:
@@ -434,15 +436,19 @@ components:
           type: string
         workspace:
           type: string
-          
-    DescribeThree:
-      title: alguma coisa
-      description: alguma coisa
+        title:
+          type: string
+
+    FeatureLayerPropertiesType:
+      title: Feature Collection Layer with Temporal Properties
+      description: Layer of a feature collection where each class is associated with its own temporal property.
       type: object
       properties:
         layer_name:
           type: string
         workspace:
+          type: string
+        title:
           type: string
         properties:
           type: array

@@ -100,7 +100,7 @@ After that, generate the documentation:
 
 .. code-block:: shell
 
-    $ npm install
+    $ npm run build
 
 
 The above command will create a folder named ``dist`` with the bundled file index.html. You may open it in your web browser or may serve it with an HTTP Server.
